@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  mariadb:
+    image: mariadb:10.2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sslcom
+      MYSQL_USER: sslcom
+      MYSQL_PASSWORD: 123123
+    ports:
+      - "3310:3306"
+    restart: on-failure
+    volumes:
+      - volume-mysql:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql:ro
+      - ./my.cnf:/etc/mysql/my.cnf
+
+volumes:
+  volume-mysql: {}
